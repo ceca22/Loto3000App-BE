@@ -14,6 +14,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Loto3000App.DataAccess;
+using Microsoft.EntityFrameworkCore;
 
 namespace Loto3000App
 {
@@ -82,8 +84,10 @@ namespace Loto3000App
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Loto3000AppDbContext databaseContext)
         {
+            databaseContext.Database.Migrate();
+            
             app.UseCors("AllowAll");
 
             if (env.IsDevelopment())
