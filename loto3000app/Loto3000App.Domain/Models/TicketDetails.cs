@@ -1,0 +1,22 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text;
+
+namespace Loto3000App.Domain.Models
+{
+    public class TicketDetails
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+
+        //[ForeignKey("Ticket")]
+        public int TicketId { get; set; }
+        public Ticket Ticket { get; set; }
+
+       
+        public int Number { get; set; }
+    }
+}
