@@ -88,7 +88,7 @@ namespace Loto3000App.Controllers
 
         [HttpGet("board")]
         public ActionResult<IEnumerable<WinningModel>> WinnersBoard()
-        {
+         {
             try
             {
 
@@ -105,12 +105,11 @@ namespace Loto3000App.Controllers
         }
 
         [HttpGet("findwinners")]
-        public IActionResult FindWinners()
+        public ActionResult<bool> FindWinners()
         {
             try
             {
-                _winningService.FindWinners();
-                return StatusCode(StatusCodes.Status200OK);
+                return StatusCode(StatusCodes.Status200OK, _winningService.FindWinners());
             }
             catch (NotFoundException ex)
             {

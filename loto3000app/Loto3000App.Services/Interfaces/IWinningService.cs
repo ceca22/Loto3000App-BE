@@ -7,7 +7,7 @@ namespace Loto3000App.Services.Interfaces
 {
     public interface IWinningService:IService<WinningModel>
     {
-        void FindWinners();
+        bool FindWinners();
         List<BoardModel> WinnersBoard();
 
         int GetGiftCardFifty();

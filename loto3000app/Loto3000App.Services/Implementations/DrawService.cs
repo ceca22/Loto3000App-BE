@@ -180,6 +180,24 @@ namespace Loto3000App.Services.Implementations
             throw new DrawException("No such option available!");
         }
 
+        public string GetLastDraw()
+        {
+            Draw draw = _drawRepository
+                .GetAll()
+                .ToList()
+                .LastOrDefault();
+
+            List<int> drawList = _drawDetailsRepository
+            .GetAll()
+            .Where(x => x.DrawId == draw.Id)
+            .Select(x => x.Number)
+            .ToList();
+
+            string drawString = GetCombination(drawList);
+            return drawString;
+
+        }
+
 
         //private methods
         private List<int> GenerateAutomatic()

@@ -78,6 +78,24 @@ namespace Loto3000App.Controllers
             }
         }
 
+        [Authorize]
+        [HttpGet("last")]
+        public ActionResult<string> GetLastDraw()
+        {
+            try
+            {
+                return StatusCode(StatusCodes.Status200OK, _drawService.GetLastDraw());
+            }
+            catch (NotFoundException ex)
+            {
+                return StatusCode(StatusCodes.Status404NotFound, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
         // POST api/<DrawController>
         [Authorize]
         [HttpPost("start")]

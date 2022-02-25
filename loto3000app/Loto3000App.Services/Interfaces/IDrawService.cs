@@ -20,7 +20,10 @@ namespace Loto3000App.Services.Interfaces
 
         bool DrawIsMade();
 
-        
+        string GetLastDraw();
+
+
+
 
 
     }

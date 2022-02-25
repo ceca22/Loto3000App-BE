@@ -37,7 +37,7 @@ namespace Loto3000App.Mappers
             };
         }
 
-        public static BoardModel ToBoardModel(this Winning winning, string drawCombination, string winningCombination, User user, Prize prize)
+        public static BoardModel ToBoardModel(this Winning winning, string drawCombination, string winningCombination, User user, Prize prize, Ticket ticket)
         {
             
 
@@ -45,9 +45,10 @@ namespace Loto3000App.Mappers
             {
                 Draw = drawCombination,
                 Id = winning.Id,
-                UserFullName = $"{user.FirstName} {user.LastName}",
+                User = user,
                 WinningTicket = winningCombination,
-                Prize = prize.PrizeType
+                Prize = prize.PrizeType,
+                SessionId = ticket.SessionId,
                 
             };
         }

@@ -62,7 +62,7 @@ namespace Loto3000App.Services.Implementations
         }
 
         //additional methods
-        public void FindWinners()
+        public bool FindWinners()
         {
             Draw lastDrawDb = _drawRepository
                                 .GetAll()
@@ -147,6 +147,7 @@ namespace Loto3000App.Services.Implementations
             }
 
             _winningRepository.SaveChanges();
+            return true;
         }
 
        
@@ -228,7 +229,7 @@ namespace Loto3000App.Services.Implementations
                                 .FirstOrDefault(x => x.Id == ticket.UserId);
 
                 Prize prize = _prizeRepository.GetById(winning.PrizeId);
-                winningsModels.Add(winning.ToBoardModel(drawCombination, winningTicket, user, prize));
+                winningsModels.Add(winning.ToBoardModel(drawCombination, winningTicket, user, prize, ticket));
 
             }
 
