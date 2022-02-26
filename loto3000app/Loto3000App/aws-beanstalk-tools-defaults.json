@@ -1,0 +1,23 @@
+{
+  "region": "eu-central-1",
+  "configuration": "Release",
+  "framework": "netcoreapp3.1",
+  "self-contained": false,
+  "application": "Loto3000AppWindows",
+  "environment": "Loto3000AppWindows-dev",
+  "enable-xray": false,
+  "enhanced-health-type": "basic",
+  "additional-options": "",
+  "solution-stack": "64bit Windows Server Core 2019 v2.8.3 running IIS 10.0",
+  "environment-type": "SingleInstance",
+  "cname": "loto3000appwindows-dev",
+  "instance-type": "t3a.medium",
+  "key-pair": "",
+  "instance-profile": "aws-elasticbeanstalk-ec2-role",
+  "service-role": "aws-elasticbeanstalk-service-role",
+  "proxy-server": "nginx",
+  "profile": "cecs",
+  "health-check-url": "/",
+  "iis-website": "Default Web Site",
+  "app-path": "/"
+}
