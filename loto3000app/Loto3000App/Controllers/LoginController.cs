@@ -30,6 +30,11 @@ namespace Loto3000App.Controllers
                 return StatusCode(StatusCodes.Status200OK, response);
 
             }
+            catch(UserException ex)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+
+            }
             catch (NotFoundException ex)
             {
                 return StatusCode(StatusCodes.Status404NotFound, ex.Message);

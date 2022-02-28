@@ -69,7 +69,15 @@ namespace Loto3000App.Services.Implementations
                                 .ToList()
                                 .LastOrDefault();
 
+            Session lastSession = _sessionRepository
+                .GetAll()
+                .ToList()
+                .LastOrDefault();
 
+            if(lastDrawDb.SessionId != lastSession.Id)
+            {
+                throw new WinningException("We cannot announce winners if there is no draw!");
+            }
             List<int> drawList = _drawDetailsRepository
                                     .GetAll()
                                     .ToList()

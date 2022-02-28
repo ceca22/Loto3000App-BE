@@ -25,9 +25,10 @@ namespace Loto3000App.Services.Implementations
         private IDrawDetailsRepository _drawDetailsRepository;
         private IPrizeRepository _prizeRepository;
         private IWinningRepository _winningRepository;
+        private IWinningService _winningService;
 
 
-        public DrawService(IUserRepository userRepository, ITicketRepository ticketRepository, ITicketDetailsRepository ticketDetailsRepository, ISessionRepository sessionRepository, IDrawRepository drawRepository, IDrawDetailsRepository drawDetailsRepository, IPrizeRepository prizeRepository, IWinningRepository winningRepository)
+        public DrawService(IUserRepository userRepository, ITicketRepository ticketRepository, ITicketDetailsRepository ticketDetailsRepository, ISessionRepository sessionRepository, IDrawRepository drawRepository, IDrawDetailsRepository drawDetailsRepository, IPrizeRepository prizeRepository, IWinningRepository winningRepository, IWinningService winningService)
         {
             _userRepository = userRepository;
             _ticketRepository = ticketRepository;
@@ -37,6 +38,7 @@ namespace Loto3000App.Services.Implementations
             _drawDetailsRepository = drawDetailsRepository;
             _prizeRepository = prizeRepository;
             _winningRepository = winningRepository;
+            _winningService = winningService;
 
 
         }
@@ -77,8 +79,7 @@ namespace Loto3000App.Services.Implementations
             _drawRepository.Add(draw);
             _drawRepository.SaveChanges();
             _drawDetailsRepository.SaveChanges();
-
-
+            _winningService.FindWinners();
 
             string combination = GetCombinationDraw(drawList);
             return combination;
@@ -149,11 +150,15 @@ namespace Loto3000App.Services.Implementations
         public bool DrawIsMade()
         {
             Draw lastDraw = _drawRepository.GetAll().ToList().LastOrDefault();
-            Session lastSession = _sessionRepository.GetAll().ToList().LastOrDefault();
-            if(lastDraw.SessionId == lastSession.Id)
+            if (lastDraw != null)
             {
-                return true;
+                Session lastSession = _sessionRepository.GetAll().ToList().LastOrDefault();
+                if (lastDraw.SessionId == lastSession.Id)
+                {
+                    return true;
+                }
             }
+           
             return false;
         }
 
@@ -182,10 +187,17 @@ namespace Loto3000App.Services.Implementations
 
         public string GetLastDraw()
         {
+            Session lastSession = _sessionRepository.GetAll().ToList().LastOrDefault();
+
             Draw draw = _drawRepository
                 .GetAll()
                 .ToList()
                 .LastOrDefault();
+
+            if(draw.SessionId != lastSession.Id)
+            {
+                return " ";
+            }
 
             List<int> drawList = _drawDetailsRepository
             .GetAll()

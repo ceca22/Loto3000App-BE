@@ -109,6 +109,11 @@ namespace Loto3000App.Services.Implementations
                                     .ToList()
                                     .LastOrDefault(); 
 
+            if(lastSessionDb.Start.Minute == DateTime.Now.Minute)
+            {
+               throw new SessionException("You can't end the session in less than a minute when you started it!");
+            }
+
             EndSessionValidations(id, lastSessionDb);
 
             lastSessionDb.End = DateTime.Now;

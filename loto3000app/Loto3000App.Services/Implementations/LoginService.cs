@@ -110,15 +110,15 @@ namespace Loto3000App.Services.Implementations
         {
             if (username == null && password != null)
             {
-                throw new NotFoundException($"Incorrect username!");
+                throw new UserException($"Incorrect username!");
             }
             if (password == null && username != null)
             {
-                throw new NotFoundException($"Incorrect password!");
+                throw new UserException($"Incorrect password!");
             }
             if (password == null && username == null)
             {
-                throw new NotFoundException($"No User found!");
+                throw new UserException($"No User found!");
             }
 
         }
